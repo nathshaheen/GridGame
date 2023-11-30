@@ -3,37 +3,39 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
-public class Cell extends Rectangle {
-    static int size = 35;
-    String type;
-    int crossingTime;
-    Color color;
+public abstract class Cell extends Rectangle {
+    private static final int size = 35;   // TODO: Needs setter and getter? Needs to be static and final?
+    private char column;
+    private int row;
+    private String type;
+    private Color color;
 
     /**
      * Constructor
      *
-     * @param x the x position of the {@code Cell}
-     * @param y the y position of the {@code Cell}
+     * @param column    the {@code column} of the {@code Cell}
+     * @param row       the {@code row} of the {@code Cell}
+     * @param x         the {@code x} position of the {@code Cell}
+     * @param y         the {@code y} position of the {@code Cell}
      */
-    public Cell(int x, int y) {
+    public Cell(char column, int row, int x, int y) {
         super(x, y, size, size);
-        color = Color.LIGHT_GRAY;
+        this.column = column;
+        this.row = row;
     }
 
     /**
-     * Paint the Cell
+     * Paint the {@code Cell}
      *
      * @param g         where to paint
-     * @param mousePos  position of the mouse
+     * @param mousePosition  position of the mouse
      */
-    public void paint(Graphics g, Point mousePos) {
-        if (contains(mousePos)) {
-            drawCellInfo(g);
+    public void paint(Graphics g, Point mousePosition) {
+        if (contains(mousePosition)) {
             g.setColor(Color.GRAY);
         } else {
             g.setColor(color);
         }
-
         g.fillRect(x, y, size, size);
         g.setColor(Color.BLACK);
         g.drawRect(x, y, size, size);
@@ -43,8 +45,9 @@ public class Cell extends Rectangle {
      * Returns if the specified {@code Point} is within the {@code Cell}
      *
      * @param p the {@code Point} to test
-     * @return  {@code true} if the Point is within the {@code cell}, else {@code false}
+     * @return {@code true} if the {@code Point} is within the {@code Cell}, else {@code false}
      */
+    @Override
     public boolean contains(Point p) {
         if (p != null) {
             return super.contains(p);
@@ -53,32 +56,86 @@ public class Cell extends Rectangle {
         }
     }
 
-    /**
-     * Draws the Cell Position, Cell Type, and Crossing Time in the Sidebar
-     *
-     * @param g where to draw
+    /*
+     * GETTERS AND SETTERS
      */
-    public void drawCellInfo(Graphics g) {
-        g.setColor(Color.BLACK);
-        g.drawString("Cell Position: " + (x / 35) + ", " + (y / 35), 730, 30);
-        g.drawString("Cell Type: " + getCellType(), 730, 50);
-        g.drawString("Crossing Time: " + getCrossingTime(), 730, 70);
+
+    /**
+     * Returns the {@code crossingTime}
+     *
+     * @return the {@code crossingTime}
+     */
+    public abstract int getCrossingTime();
+
+    /**
+     *
+     *
+     * @return
+     */
+    public char getColumn() {
+        return column;
     }
 
     /**
-     * Returns the {@code Cell type}
      *
-     * @return  the {@code Cell type}
+     *
+     * @param column
      */
-    public String getCellType() {
+    public void setColumn(char column) {
+        this.column = column;
+    }
+
+    /**
+     *
+     *
+     * @return
+     */
+    public int getRow() {
+        return row;
+    }
+
+    /**
+     *
+     *
+     * @param row
+     */
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    /**
+     *
+     *
+     * @return
+     */
+    public String getType() {
         return type;
     }
 
     /**
-     * Returns the {@code Cell crossingTime}
-     * @return  the {@code Cell crossingTime}
+     *
+     *
+     * @param type
      */
-    public int getCrossingTime() {
-        return crossingTime;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /**
+     *
+     *
+     * @return
+     */
+    public Color getColor() {
+        return color;
+    }
+
+    /**
+     *
+     *
+     * @param color
+     */
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

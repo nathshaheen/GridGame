@@ -1,28 +1,49 @@
 import java.awt.Color;
+import java.util.Random;
 
 public class Sand extends Cell {
+    private static Random random = new Random();
+    private final float yellow;
+
     /**
      * Constructor
      *
-     * @param x the {@code x} position of the {@code Sand} cell
-     * @param y the {@code y} position of the {@code Sand} cell
+     * @param column    the {@code column} of the {@code Sand}
+     * @param row       the {@code row} of the {@code Sand}
+     * @param x         the {@code x} position of the {@code Sand}
+     * @param y         the {@code y} position of the {@code Sand}
      */
-    public Sand(int x, int y) {
-        super(x, y);
+    public Sand(char column, int row, int x, int y) {
+        super(column, row, x, y);
 
-        // Determine if Sand is Quicksand
-        double viscosity = Math.random();
-        if (viscosity >= 0.8) {
-            this.type = "Quicksand";
-            this.crossingTime = 15;
+        yellow = random.nextFloat();
+        if (yellow >= 0.8f) {   // Determine if Sand is Quicksand
+            setType("Quicksand");
         } else {
-            this.type = "Sand";
-            this.crossingTime = 5;
+            setType("Sand");
         }
 
-        int r = (200 + (int) (viscosity * 50 + 1));
-        int g = (150 + (int) (viscosity * 50 + 1));
+        int r = (200 + (int )(yellow * 50 + 1));
+        int g = (150 + (int) (yellow * 50 + 1));
         int b = 0;
-        this.color = new Color(r, g, b);
+        setColor(new Color(r, g, b));
+    }
+
+    /*
+     * GETTERS AND SETTERS
+     */
+
+    /**
+     * Returns the {@code crossingTime}
+     *
+     * @return the {@code crossingTime}
+     */
+    @Override
+    public int getCrossingTime() {
+        if (yellow >= 0.8f) {
+            return 3;
+        } else {
+            return 1;
+        }
     }
 }
