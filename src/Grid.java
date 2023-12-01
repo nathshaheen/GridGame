@@ -1,7 +1,12 @@
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Point;
-import java.util.*;
+import java.util.Random;
+import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class Grid {
     private Cell[][] cells = new Cell[20][20];
@@ -33,7 +38,6 @@ public class Grid {
      * @param mousePosition position of the mouse
      */
     public void paint(Graphics g, Point mousePosition) {
-//        doToEachCell((Cell cell) -> cell.paint(g, mousePosition));
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
                 cells[i][j].paint(g, mousePosition);
@@ -42,7 +46,11 @@ public class Grid {
     }
 
     /**
+     * Paint an overlay onto the specified {@code Cells} in {@code cellOverlay}
      *
+     * @param g           where to paint
+     * @param cellOverlay list of {@code Cells} to paint the overlay on
+     * @param color       the {@code Color} of the overlay
      */
     public void paintOverlay(Graphics g, List<Cell> cellOverlay, Color color) {
         g.setColor(color);
@@ -52,11 +60,12 @@ public class Grid {
     }
 
     /**
+     * Return a {@code List} of {@code Cells} within a radius of {@code size}.
+     * Use {@code considerTime} to consider {@code Cell crossingTime}
      *
-     *
-     * @param center
-     * @param size
-     * @param considerTime
+     * @param center       the center {@code Cell} of the radius
+     * @param size         the size of the radius
+     * @param considerTime {@code true} to consider {@code Cell crossingTime}, {@code false} to ignore {@code Cell crossingTime}
      * @return
      */
     public List<Cell> getRadius(Cell center, int size, boolean considerTime) {
@@ -82,31 +91,31 @@ public class Grid {
     }
 
     /**
+     * Convert {@code col} numbers to their corresponding {@code label} letter
      *
-     *
-     * @param col
-     * @return
+     * @param col the {@code col} to convert
+     * @return    the corresponding {@code label} letter of {@code col}
      */
     public char colToLabel(int col) {
         return (char) (col + 65);
     }
 
     /**
+     * Convert {@code label} letters to their corresponding {@code col} number
      *
-     *
-     * @param col
-     * @return
+     * @param col the {@code label} to convert
+     * @return    the corresponding {@code col} number of {@code label}
      */
     public int labelToCol(char col) {
         return (int) col - 65;
     }
 
     /**
-     * Returns the {@code Cell} at the specified Column and Row
+     * Returns the {@code Cell} at the specified {@code col} and {@code row}
      *
      * @param col   column
      * @param row   row
-     * @return  the  {@code Cell} at the specified Column and Row
+     * @return  the  {@code Cell} at the specified {@code col} and {@code row}
      */
     public Optional<Cell> getCellAtColRow(char col, int row) {
         int cellCol = labelToCol(col);
@@ -117,15 +126,6 @@ public class Grid {
         }
     }
 
-    /**
-     *
-     *
-     * @param col1
-     * @param row1
-     * @param col2
-     * @param row2
-     * @return
-     */
     public List<Cell> cellsInRange(char col1, int row1, char col2, int row2) {
         int cellCol1 = labelToCol(col1);
         int cellCol2 = labelToCol(col2);
@@ -139,22 +139,10 @@ public class Grid {
         return cellsInRange;
     }
 
-    /**
-     *
-     *
-     * @param old
-     * @param replacement
-     */
     public void replaceCell(Cell old, Cell replacement) {
         cells[labelToCol(old.getColumn())][old.getRow()] = replacement;
     }
 
-    /**
-     *
-     *
-     * @param p
-     * @return
-     */
     public Optional<Cell> cellsAtPoint(Point p) {
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
@@ -166,12 +154,14 @@ public class Grid {
         return Optional.empty();
     }
 
-    /**
-     *
-     *
-     * @return
+    /*
+     * GETTERS AND SETTERS
      */
-    public Cell[][] getCells() {
-        return cells;
-    }
+//    public Cell[][] getCells() {
+//        return cells;
+//    }
+
+//    public void setCells(Cell[][] cells) {
+//        this.cells = cells;
+//    }
 }

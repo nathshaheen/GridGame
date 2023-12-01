@@ -25,12 +25,6 @@ public class PalmTree extends Cell {
     /*
      * GETTERS AND SETTERS
      */
-
-    /**
-     * Returns the {@code crossingTime}
-     *
-     * @return the {@code crossingTime}
-     */
     @Override
     public int getCrossingTime() {
         return 2;

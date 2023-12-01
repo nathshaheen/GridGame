@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public abstract class Cell extends Rectangle {
-    private static final int size = 35;   // TODO: Needs setter and getter? Needs to be static and final?
+    private static final int size = 35;
     private char column;
     private int row;
     private String type;
@@ -13,10 +13,10 @@ public abstract class Cell extends Rectangle {
     /**
      * Constructor
      *
-     * @param column    the {@code column} of the {@code Cell}
-     * @param row       the {@code row} of the {@code Cell}
-     * @param x         the {@code x} position of the {@code Cell}
-     * @param y         the {@code y} position of the {@code Cell}
+     * @param column the {@code column} of the {@code Cell}
+     * @param row    the {@code row} of the {@code Cell}
+     * @param x      the {@code x} position of the {@code Cell}
+     * @param y      the {@code y} position of the {@code Cell}
      */
     public Cell(char column, int row, int x, int y) {
         super(x, y, size, size);
@@ -27,8 +27,8 @@ public abstract class Cell extends Rectangle {
     /**
      * Paint the {@code Cell}
      *
-     * @param g         where to paint
-     * @param mousePosition  position of the mouse
+     * @param g             where to paint
+     * @param mousePosition position of the mouse
      */
     public void paint(Graphics g, Point mousePosition) {
         if (contains(mousePosition)) {
@@ -59,82 +59,36 @@ public abstract class Cell extends Rectangle {
     /*
      * GETTERS AND SETTERS
      */
-
-    /**
-     * Returns the {@code crossingTime}
-     *
-     * @return the {@code crossingTime}
-     */
     public abstract int getCrossingTime();
 
-    /**
-     *
-     *
-     * @return
-     */
     public char getColumn() {
         return column;
     }
 
-    /**
-     *
-     *
-     * @param column
-     */
-    public void setColumn(char column) {
-        this.column = column;
-    }
+//    public void setColumn(char column) {
+//        this.column = column;
+//    }
 
-    /**
-     *
-     *
-     * @return
-     */
     public int getRow() {
         return row;
     }
 
-    /**
-     *
-     *
-     * @param row
-     */
-    public void setRow(int row) {
-        this.row = row;
-    }
+//    public void setRow(int row) {
+//        this.row = row;
+//    }
 
-    /**
-     *
-     *
-     * @return
-     */
     public String getType() {
         return type;
     }
 
-    /**
-     *
-     *
-     * @param type
-     */
     public void setType(String type) {
         this.type = type;
     }
 
-    /**
-     *
-     *
-     * @return
-     */
-    public Color getColor() {
-        return color;
-    }
+//    public Color getColor() {
+//        return color;
+//    }
 
-    /**
-     *
-     *
-     * @param color
-     */
     public void setColor(Color color) {
         this.color = color;
     }

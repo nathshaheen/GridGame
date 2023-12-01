@@ -1,12 +1,12 @@
 import java.awt.Polygon;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Rabbit extends Actor {
     /**
+     * Constructor
      *
-     *
-     * @param location
+     * @param location the {@code Cell location} of the {@code Rabbit}
+     * @param redness  the {@code redness} of the {@code Rabbit}
      */
     public Rabbit(Cell location, float redness) {
         super(location, redness);
@@ -16,6 +16,9 @@ public class Rabbit extends Actor {
         setPoly();
     }
 
+    /**
+     * Draw the {@code Rabbit}
+     */
     public void setPoly() {
         setDisplay(new ArrayList<>());
         Polygon ear1 = new Polygon();

@@ -3,9 +3,10 @@ import java.util.ArrayList;
 
 public class Dog extends Actor {
     /**
+     * Constructor
      *
-     *
-     * @param location
+     * @param location the {@code Cell location} of the {@code Dog}
+     * @param redness  the {@code redness} of the {@code Dog}
      */
     public Dog(Cell location, float redness) {
         super(location, redness);
@@ -15,6 +16,9 @@ public class Dog extends Actor {
         setPoly();
     }
 
+    /**
+     * Draw the {@code Dog}
+     */
     public void setPoly() {
         setDisplay(new ArrayList<>());
         Polygon ear1 = new Polygon();

@@ -32,12 +32,6 @@ public class Sand extends Cell {
     /*
      * GETTERS AND SETTERS
      */
-
-    /**
-     * Returns the {@code crossingTime}
-     *
-     * @return the {@code crossingTime}
-     */
     @Override
     public int getCrossingTime() {
         if (yellow >= 0.8f) {

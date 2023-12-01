@@ -9,12 +9,12 @@ public class MenuItem  extends Rectangle {
     static int width = 200;
 
     /**
+     * Constructor
      *
-     *
-     * @param display
-     * @param x
-     * @param y
-     * @param action
+     * @param display the {@code String} to display
+     * @param x       the {@code x} position of the {@code MenuItem}
+     * @param y       the {@code y} position of the {@code MenuItem}
+     * @param action  the {@code action} of the {@code MenuItem}
      */
     public MenuItem(String display, int x, int y, Runnable action) {
         super(x, y, width, height);
@@ -23,9 +23,9 @@ public class MenuItem  extends Rectangle {
     }
 
     /**
+     * Paint the {@code MenuItem}
      *
-     *
-     * @param g
+     * @param g where to paint
      */
     public void paint(Graphics g) {
         g.setColor(new Color(1.0f, 1.0f, 1.0f, 1.0f));
@@ -33,20 +33,25 @@ public class MenuItem  extends Rectangle {
         g.setColor(Color.BLACK);
         g.drawRect(x, y, width, height);
         g.drawRect(x - 1, y - 1, width + 2, height + 2);
-//        g.setFont(displayFont);
         g.drawString(display, x + 8, y + 23);
     }
 
     /*
      * GETTERS AND SETTERS
      */
-
-    /**
-     *
-     *
-     * @return
-     */
     public Runnable getAction() {
         return action;
     }
+
+//    public void setAction(Runnable action) {
+//        this.action = action;
+//    }
+
+//    public String getDisplay() {
+//        return display;
+//    }
+
+//    public void setDisplay(String display) {
+//        this.display = display;
+//    }
 }

@@ -1,12 +1,12 @@
 import java.awt.Polygon;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Lion extends Actor{
     /**
+     * Constructor
      *
-     *
-     * @param location
+     * @param location the {@code Cell location} of the {@code Lion}
+     * @param redness  the {@code redness} of the {@code Lion}
      */
     public Lion(Cell location, float redness) {
         super(location, redness);
@@ -16,6 +16,9 @@ public class Lion extends Actor{
         setPoly();
     }
 
+    /**
+     * Draw the {@code Lion}
+     */
     public void setPoly() {
         setDisplay(new ArrayList<>());
         Polygon mane = new Polygon();

@@ -24,13 +24,14 @@ public class Stage {
     }
 
     /**
-     * Paint the {@code Stage}
+     * Paint the {@code Stage} based on the {@code currentState} of the game
      *
      * @param g             where to paint
      * @param mousePosition position of the mouse
      */
     public void paint(Graphics g, Point mousePosition) {
         if (currentState.equals(State.CPUMoving)) {
+            // Move each CPU Actor according to their MoveStrategy
             for (Actor actor: actors) {
                 if (!actor.isTeamRed()) {
                     List<Cell> possibleLocations = grid.getRadius(actor.getLocation(), actor.getMoves(), true);
@@ -39,34 +40,42 @@ public class Stage {
                 }
             }
 
+            // Pass control to player
             currentState = State.ChoosingActor;
             for (Actor actor : actors) {
                 actor.setTurns(1);
             }
         } else if (currentState == State.ChoosingActor) {
-            boolean turnsLeft = false;   // ADDED
-
+            // Check if players turn has ended
+            boolean turnsLeft = false;
             for (Actor actor : actors) {
                 if (actor.getTurns() > 0 && actor.isTeamRed()) {
                     turnsLeft = true;
                 }
             }
 
+            // Pass control to CPU
             if (!turnsLeft) {
                 currentState = State.CPUMoving;
             }
         }
 
+        // Grid
         grid.paint(g, mousePosition);
+
+        // Cell overlay
         grid.paintOverlay(g, cellOverlay, new Color(0.0f, 0.0f, 1.0f, 0.5f));
 
+        // Actors
         for (Actor actor : actors) {
             actor.paint(g);
         }
 
+        // Current game state text
         g.setColor(Color.DARK_GRAY);
         g.drawString(currentState.toString(), 720, 20);
 
+        // Currently moused overed Cell text
         Optional<Cell> cellAtPoint = grid.cellsAtPoint(mousePosition);
         if (cellAtPoint.isPresent()) {
             Cell cellAtPointCell = cellAtPoint.get();
@@ -77,6 +86,7 @@ public class Stage {
             g.drawString(String.valueOf(cellAtPointCell.getCrossingTime()), 820, 65);
         }
 
+        // Actor sidebar text
         int yLocation = 138;
         for (int i = 0; i < actors.size(); i++) {
             Actor actor = actors.get(i);
@@ -95,12 +105,12 @@ public class Stage {
             g.drawString(String.valueOf(actor.getRange()), 840, yLocation + 78 + 100 * i);
         }
 
+        // Menu
         for (MenuItem menuItem : menuOverlay) {
             menuItem.paint(g);
         }
     }
 
-//    TODO: Remove
 //    /**
 //     *
 //     *
@@ -176,7 +186,7 @@ public class Stage {
             case SelectingTarget -> {
                 for (Cell cell : cellOverlay) {
                     if (cell.contains(x, y)) {
-                        Optional<Actor> optionalActor = actorAt(cell);
+                        Optional<Actor> optionalActor = getActorAtCell(cell);
                         optionalActor.ifPresent(actor -> actor.makeRedder(0.1f));
                     }
                 }
@@ -188,11 +198,11 @@ public class Stage {
     }
 
     /**
+     * Return the {@code Actor} at the specified {@code Cell}, else an empty {@code Optional} is returned
      *
-     *
-     * @return
+     * @return the {@code Actor} at the specified {@code Cell}, else an empty {@code Optional}
      */
-    public Optional<Actor> actorAt(Cell cell) {
+    public Optional<Actor> getActorAtCell(Cell cell) {
         for (Actor actor : actors) {
             if (actor.getLocation().equals(cell)) {
                 return Optional.of(actor);
@@ -204,76 +214,43 @@ public class Stage {
     /*
      * GETTERS AND SETTERS
      */
-
-    /**
-     *
-     *
-     * @return
-     */
     public Grid getGrid() {
         return grid;
     }
 
-    /**
-     *
-     *
-     * @param grid
-     */
-    public void setGrid(Grid grid) {
-        this.grid = grid;
-    }
+//    public void setGrid(Grid grid) {
+//        this.grid = grid;
+//    }
 
-    /**
-     *
-     *
-     * @return
-     */
     public List<Actor> getActors() {
         return actors;
     }
 
-    /**
-     *
-     *
-     * @param actors
-     */
-    public void setActors(List<Actor> actors) {
-        this.actors = actors;
-    }
+//    public void setActors(List<Actor> actors) {
+//        this.actors = actors;
+//    }
 
-    /**
-     *
-     *
-     * @return
-     */
-    public List<MenuItem> getMenuOverlay() {
-        return menuOverlay;
-    }
+//    public List<Cell> getCellOverlay() {
+//        return cellOverlay;
+//    }
 
-    /**
-     *
-     *
-     * @param menuOverlay
-     */
-    public void setMenuOverlay(List<MenuItem> menuOverlay) {
-        this.menuOverlay = menuOverlay;
-    }
+//    public void setCellOverlay(List<Cell> cellOverlay) {
+//        this.cellOverlay = cellOverlay;
+//    }
 
-    /**
-     *
-     *
-     * @return
-     */
-    public Optional<Actor> getActorInAction() {
-        return actorInAction;
-    }
+//    public List<MenuItem> getMenuOverlay() {
+//        return menuOverlay;
+//    }
 
-    /**
-     *
-     *
-     * @param actorInAction
-     */
-    public void setActorInAction(Optional<Actor> actorInAction) {
-        this.actorInAction = actorInAction;
-    }
+//    public void setMenuOverlay(List<MenuItem> menuOverlay) {
+//        this.menuOverlay = menuOverlay;
+//    }
+
+//    public Optional<Actor> getActorInAction() {
+//        return actorInAction;
+//    }
+
+//    public void setActorInAction(Optional<Actor> actorInAction) {
+//        this.actorInAction = actorInAction;
+//    }
 }

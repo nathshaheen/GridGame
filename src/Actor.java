@@ -10,15 +10,21 @@ public abstract class Actor {
     private int moves;
     private int range;
 
+    /**
+     * Constructor
+     *
+     * @param location the {@code location} of the {@code Actor}
+     * @param redness  the {@code redness} of the {@code Actor}
+     */
     public Actor(Cell location, float redness) {
         this.location = location;
         this.redness = redness;
     }
 
     /**
+     * Paint the {@code Actor}
      *
-     *
-     * @param g
+     * @param g where to paint
      */
     public void paint(Graphics g) {
         for (Polygon polygon : display) {
@@ -32,9 +38,9 @@ public abstract class Actor {
     public abstract void setPoly();
 
     /**
+     * Add redness to the Actor, thus slowly changing their team
      *
-     *
-     * @param amount
+     * @param amount the amount of redness to add
      */
     public void makeRedder(float amount) {
         redness += amount;
@@ -43,6 +49,11 @@ public abstract class Actor {
         }
     }
 
+    /**
+     * Return if the {@code Actor} is on the red team
+     *
+     * @return returns true if the {@code Actor} is on the red team
+     */
     public boolean isTeamRed() {
         return redness > 0.5f;
     }
@@ -50,41 +61,14 @@ public abstract class Actor {
     /*
      * GETTERS AND SETTERS
      */
-
-    /**
-     *
-     *
-     * @return
-     */
-    public ArrayList<Polygon> getDisplay() {
-        return display;
-    }
-
-    /**
-     *
-     *
-     * @param display
-     */
-    public void setDisplay(ArrayList<Polygon> display) {
-        this.display = display;
-    }
-
-    /**
-     *
-     *
-     * @return
-     */
     public Cell getLocation() {
         return location;
     }
 
-    /**
-     *
-     *
-     * @param location
-     */
     public void setLocation(Cell location) {
         this.location = location;
+
+        // Assign a MoveStrategy
         if (this.location.getRow() % 2 == 0) {
             this.strategy = new RandomMove();
         } else {
@@ -93,93 +77,51 @@ public abstract class Actor {
         setPoly();
     }
 
-    /**
-     *
-     *
-     * @return
-     */
-    public float getRedness() {
-        return redness;
+    public ArrayList<Polygon> getDisplay() {
+        return display;
     }
 
-    /**
-     *
-     *
-     * @param redness
-     */
-    public void setRedness(float redness) {
-        this.redness = redness;
+    public void setDisplay(ArrayList<Polygon> display) {
+        this.display = display;
     }
 
-    /**
-     *
-     *
-     * @return
-     */
-    public int getTurns() {
-        return turns;
-    }
-
-    /**
-     *
-     *
-     * @param turns
-     */
-    public void setTurns(int turns) {
-        this.turns = turns;
-    }
-
-    /**
-     *
-     *
-     * @return
-     */
-    public int getMoves() {
-        return moves;
-    }
-
-    /**
-     *
-     *
-     * @param moves
-     */
-    public void setMoves(int moves) {
-        this.moves = moves;
-    }
-
-    /**
-     *
-     *
-     * @return
-     */
-    public int getRange() {
-        return range;
-    }
-
-    /**
-     *
-     *
-     * @param range
-     */
-    public void setRange(int range) {
-        this.range = range;
-    }
-
-    /**
-     *
-     *
-     * @return
-     */
     public MoveStrategy getStrategy() {
         return strategy;
     }
 
-    /**
-     *
-     *
-     * @param strategy
-     */
-    public void setStrategy(MoveStrategy strategy) {
-        this.strategy = strategy;
+//    public void setStrategy(MoveStrategy strategy) {
+//        this.strategy = strategy;
+//    }
+
+    public float getRedness() {
+        return redness;
+    }
+
+//    public void setRedness(float redness) {
+//        this.redness = redness;
+//    }
+
+    public int getTurns() {
+        return turns;
+    }
+
+    public void setTurns(int turns) {
+        this.turns = turns;
+    }
+
+    public int getMoves() {
+        return moves;
+    }
+
+    public void setMoves(int moves) {
+        this.moves = moves;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
     }
 }
