@@ -11,7 +11,7 @@ public class Dog extends Actor {
     public Dog(Cell location, float redness) {
         super(location, redness);
         setTurns(1);
-        setMoves(5);
+        setMoves(2);
         setRange(3);
         setPoly();
     }

@@ -11,7 +11,7 @@ public class Lion extends Actor{
     public Lion(Cell location, float redness) {
         super(location, redness);
         setTurns(1);
-        setMoves(3);
+        setMoves(1);
         setRange(5);
         setPoly();
     }

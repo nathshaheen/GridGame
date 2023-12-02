@@ -69,21 +69,24 @@ public class Grid {
      * @return
      */
     public List<Cell> getRadius(Cell center, int size, boolean considerTime) {
-        int i = labelToCol(center.getColumn());
-        int j = center.getRow();
+        int col = labelToCol(center.getColumn());
+        int row = center.getRow();
         Set<Cell> inRadius = new HashSet<>();
-        if (size > 0) {
-            getCellAtColRow(colToLabel(i), j - 1).ifPresent(inRadius::add);
-            getCellAtColRow(colToLabel(i), j + 1).ifPresent(inRadius::add);
-            getCellAtColRow(colToLabel(i - 1), j).ifPresent(inRadius::add);
-            getCellAtColRow(colToLabel(i + 1), j).ifPresent(inRadius::add);
-        }
 
-        for (Cell cell : inRadius.toArray(new Cell[0])) {
-            if (considerTime) {
-                inRadius.addAll(getRadius(cell, size - cell.getCrossingTime(), true));
-            } else {
-                inRadius.addAll(getRadius(cell, size - 1, false));
+        for (int i = col - 1; i < col + 2; i++) {
+            for (int j = row - 1; j < row + 2; j++) {
+                if (!(i == col && j == row)) {
+                    Cell currentCell = getCellAtColRow(colToLabel(i), j).orElse(null);
+                    if (currentCell != null) {
+                        if (considerTime && size - currentCell.getCrossingTime() >= 0) {
+                            inRadius.add(currentCell);
+                            inRadius.addAll(getRadius(currentCell, size - currentCell.getCrossingTime(), true));
+                        } else if (!considerTime && size >= 0) {
+                            inRadius.add(currentCell);
+                            inRadius.addAll(getRadius(currentCell, size - 1, false));
+                        }
+                    }
+                }
             }
         }
 

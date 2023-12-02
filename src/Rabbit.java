@@ -11,7 +11,7 @@ public class Rabbit extends Actor {
     public Rabbit(Cell location, float redness) {
         super(location, redness);
         setTurns(1);
-        setMoves(7);
+        setMoves(3);
         setRange(1);
         setPoly();
     }

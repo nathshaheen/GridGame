@@ -167,7 +167,7 @@ public class Stage {
                     actorInAction.get().setLocation(clicked.get());
                     actorInAction.get().setTurns(actorInAction.get().getTurns() - 1);
                     menuOverlay.add(new MenuItem("Fire", x, y, () -> {
-                        cellOverlay = grid.getRadius(actorInAction.get().getLocation(), actorInAction.get().getRange(), true);
+                        cellOverlay = grid.getRadius(actorInAction.get().getLocation(), actorInAction.get().getRange(), false);
                         cellOverlay.remove(actorInAction.get().getLocation());
                         currentState = State.SelectingTarget;
                     }));
