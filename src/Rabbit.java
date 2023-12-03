@@ -5,8 +5,8 @@ public class Rabbit extends Actor {
     /**
      * Constructor
      *
-     * @param location the {@code Cell location} of the {@code Rabbit}
-     * @param redness  the {@code redness} of the {@code Rabbit}
+     * @param location the location of the {@code Rabbit}
+     * @param redness  the redness of the {@code Rabbit}
      */
     public Rabbit(Cell location, float redness) {
         super(location, redness);
@@ -21,24 +21,24 @@ public class Rabbit extends Actor {
      */
     public void setPoly() {
         setDisplay(new ArrayList<>());
-        Polygon ear1 = new Polygon();
-        ear1.addPoint(getLocation().x + 11, getLocation().y + 5);
-        ear1.addPoint(getLocation().x + 11, getLocation().y + 12);
-        ear1.addPoint(getLocation().x + 16, getLocation().y + 12);
-        ear1.addPoint(getLocation().x + 16, getLocation().y + 5);
-        Polygon ear2 = new Polygon();
-        ear2.addPoint(getLocation().x + 19, getLocation().y + 5);
-        ear2.addPoint(getLocation().x + 19, getLocation().y + 12);
-        ear2.addPoint(getLocation().x + 24, getLocation().y + 12);
-        ear2.addPoint(getLocation().x + 24, getLocation().y + 5);
+        Polygon leftEar = new Polygon();
+        leftEar.addPoint(getLocation().x + 11, getLocation().y + 5);
+        leftEar.addPoint(getLocation().x + 11, getLocation().y + 12);
+        leftEar.addPoint(getLocation().x + 16, getLocation().y + 12);
+        leftEar.addPoint(getLocation().x + 16, getLocation().y + 5);
+        Polygon rightEar = new Polygon();
+        rightEar.addPoint(getLocation().x + 19, getLocation().y + 5);
+        rightEar.addPoint(getLocation().x + 19, getLocation().y + 12);
+        rightEar.addPoint(getLocation().x + 24, getLocation().y + 12);
+        rightEar.addPoint(getLocation().x + 24, getLocation().y + 5);
         Polygon face = new Polygon();
         face.addPoint(getLocation().x + 8, getLocation().y + 12);
         face.addPoint(getLocation().x + 27, getLocation().y + 12);
         face.addPoint(getLocation().x + 27, getLocation().y + 25);
         face.addPoint(getLocation().x + 8, getLocation().y + 25);
         getDisplay().add(face);
-        getDisplay().add(ear1);
-        getDisplay().add(ear2);
+        getDisplay().add(leftEar);
+        getDisplay().add(rightEar);
     }
 }
 

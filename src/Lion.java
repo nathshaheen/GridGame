@@ -5,8 +5,8 @@ public class Lion extends Actor{
     /**
      * Constructor
      *
-     * @param location the {@code Cell location} of the {@code Lion}
-     * @param redness  the {@code redness} of the {@code Lion}
+     * @param location the location of the {@code Lion}
+     * @param redness  the redness of the {@code Lion}
      */
     public Lion(Cell location, float redness) {
         super(location, redness);

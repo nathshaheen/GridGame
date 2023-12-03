@@ -8,21 +8,21 @@ import java.util.regex.Pattern;
 
 public class StageReader {
     /**
-     *  Read the stage file located in {@code ./data/}
+     *  Read the stage file located in ./data/
      *
      * @param  path path to the stage file
-     * @return the {@code Stage} specified by the stage file
+     * @return      the {@code Stage} specified by the stage file
      */
     public static Stage readStage(String path) {
         Stage stage = new Stage();
 
         try {
-            Properties props = new Properties();
-            props.load(new FileInputStream(path));
+            Properties propertiess = new Properties();
+            propertiess.load(new FileInputStream(path));
 
             // Parse each line of the stage file
-            for (String key : props.stringPropertyNames()) {
-                String value = props.getProperty(key);
+            for (String key : propertiess.stringPropertyNames()) {
+                String value = propertiess.getProperty(key);
                 Pattern cell = Pattern.compile("(.)(\\d+)");
                 Pattern range = Pattern.compile("(.)(\\d+)->(.)(\\d+)");
                 List<Cell> cellsInQuestion = new ArrayList<>();
@@ -30,12 +30,12 @@ public class StageReader {
                 Matcher rangeMatcher = range.matcher(key);
 
                 if (rangeMatcher.matches()) {   // Range specification
-                    cellsInQuestion = stage.getGrid().cellsInRange(rangeMatcher.group(1).charAt(0),
+                    cellsInQuestion = stage.getGrid().getCellsInRange(rangeMatcher.group(1).charAt(0),
                             Integer.parseInt(rangeMatcher.group(2)),
                             rangeMatcher.group(3).charAt(0),
                             Integer.parseInt(rangeMatcher.group(4)));
                 } else if (cellMatcher.matches()) { // Cell specification
-                    stage.getGrid().getCellAtColRow(cellMatcher.group(1).charAt(0),
+                    stage.getGrid().getCellAtColumnRow(cellMatcher.group(1).charAt(0),
                             Integer.parseInt(cellMatcher.group(2))).ifPresent(cellsInQuestion::add);
                 } else {
                     System.out.println("No match");
@@ -57,8 +57,8 @@ public class StageReader {
                     }
                 }
             }
-        } catch (IOException e) {
-            System.out.println(e);
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
 
         return stage;

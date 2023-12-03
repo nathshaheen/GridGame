@@ -1,6 +1,6 @@
-import java.awt.Rectangle;
-import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class MenuItem  extends Rectangle {
     private Runnable action;
@@ -12,9 +12,9 @@ public class MenuItem  extends Rectangle {
      * Constructor
      *
      * @param display the {@code String} to display
-     * @param x       the {@code x} position of the {@code MenuItem}
-     * @param y       the {@code y} position of the {@code MenuItem}
-     * @param action  the {@code action} of the {@code MenuItem}
+     * @param x       the x position of the {@code MenuItem}
+     * @param y       the y position of the {@code MenuItem}
+     * @param action  the action of the {@code MenuItem}
      */
     public MenuItem(String display, int x, int y, Runnable action) {
         super(x, y, width, height);
@@ -25,15 +25,15 @@ public class MenuItem  extends Rectangle {
     /**
      * Paint the {@code MenuItem}
      *
-     * @param g where to paint
+     * @param graphics where to paint
      */
-    public void paint(Graphics g) {
-        g.setColor(new Color(1.0f, 1.0f, 1.0f, 1.0f));
-        g.fillRect(x, y, width, height);
-        g.setColor(Color.BLACK);
-        g.drawRect(x, y, width, height);
-        g.drawRect(x - 1, y - 1, width + 2, height + 2);
-        g.drawString(display, x + 8, y + 23);
+    public void paint(Graphics graphics) {
+        graphics.setColor(new Color(1.0f, 1.0f, 1.0f, 1.0f));
+        graphics.fillRect(x, y, width, height);
+        graphics.setColor(Color.BLACK);
+        graphics.drawRect(x, y, width, height);
+        graphics.drawRect(x - 1, y - 1, width + 2, height + 2);
+        graphics.drawString(display, x + 8, y + 23);
     }
 
     /*

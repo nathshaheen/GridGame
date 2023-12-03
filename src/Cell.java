@@ -1,7 +1,7 @@
-import java.awt.Rectangle;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 
 public abstract class Cell extends Rectangle {
     private static final int size = 35;
@@ -13,10 +13,10 @@ public abstract class Cell extends Rectangle {
     /**
      * Constructor
      *
-     * @param column the {@code column} of the {@code Cell}
-     * @param row    the {@code row} of the {@code Cell}
-     * @param x      the {@code x} position of the {@code Cell}
-     * @param y      the {@code y} position of the {@code Cell}
+     * @param column the column of the {@code Cell}
+     * @param row    the row of the {@code Cell}
+     * @param x      the x position of the {@code Cell}
+     * @param y      the y position of the {@code Cell}
      */
     public Cell(char column, int row, int x, int y) {
         super(x, y, size, size);
@@ -27,30 +27,30 @@ public abstract class Cell extends Rectangle {
     /**
      * Paint the {@code Cell}
      *
-     * @param g             where to paint
+     * @param graphics      where to paint
      * @param mousePosition position of the mouse
      */
-    public void paint(Graphics g, Point mousePosition) {
+    public void paint(Graphics graphics, Point mousePosition) {
         if (contains(mousePosition)) {
-            g.setColor(Color.GRAY);
+            graphics.setColor(Color.GRAY);
         } else {
-            g.setColor(color);
+            graphics.setColor(color);
         }
-        g.fillRect(x, y, size, size);
-        g.setColor(Color.BLACK);
-        g.drawRect(x, y, size, size);
+        graphics.fillRect(x, y, size, size);
+        graphics.setColor(Color.BLACK);
+        graphics.drawRect(x, y, size, size);
     }
 
     /**
      * Returns if the specified {@code Point} is within the {@code Cell}
      *
-     * @param p the {@code Point} to test
-     * @return {@code true} if the {@code Point} is within the {@code Cell}, else {@code false}
+     * @param point the {@code Point} to test
+     * @return      true if the {@code Point} is within the {@code Cell}, else false
      */
     @Override
-    public boolean contains(Point p) {
-        if (p != null) {
-            return super.contains(p);
+    public boolean contains(Point point) {
+        if (point != null) {
+            return super.contains(point);
         } else {
             return false;
         }

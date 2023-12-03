@@ -1,4 +1,6 @@
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,12 +26,12 @@ public class Stage {
     }
 
     /**
-     * Paint the {@code Stage} based on the {@code currentState} of the game
+     * Paint the {@code Stage} based on the currentState of the game
      *
-     * @param g             where to paint
+     * @param graphics      where to paint
      * @param mousePosition position of the mouse
      */
-    public void paint(Graphics g, Point mousePosition) {
+    public void paint(Graphics graphics, Point mousePosition) {
         if (currentState.equals(State.CPUMoving)) {
             // Move each CPU Actor according to their MoveStrategy
             for (Actor actor: actors) {
@@ -61,76 +63,61 @@ public class Stage {
         }
 
         // Grid
-        grid.paint(g, mousePosition);
+        grid.paint(graphics, mousePosition);
 
         // Cell overlay
-        grid.paintOverlay(g, cellOverlay, new Color(0.0f, 0.0f, 1.0f, 0.5f));
+        grid.paintOverlay(graphics, cellOverlay, new Color(0.0f, 0.0f, 1.0f, 0.5f));
 
         // Actors
         for (Actor actor : actors) {
-            actor.paint(g);
+            actor.paint(graphics);
         }
 
         // Current game state text
-        g.setColor(Color.DARK_GRAY);
-        g.drawString(currentState.toString(), 720, 20);
+        graphics.setColor(Color.DARK_GRAY);
+        graphics.drawString(currentState.toString(), 720, 20);
 
         // Currently moused overed Cell text
-        Optional<Cell> cellAtPoint = grid.cellsAtPoint(mousePosition);
+        Optional<Cell> cellAtPoint = grid.getCellAtPoint(mousePosition);
         if (cellAtPoint.isPresent()) {
             Cell cellAtPointCell = cellAtPoint.get();
-            g.setColor(Color.DARK_GRAY);
-            g.drawString(cellAtPointCell.getColumn() + String.valueOf(cellAtPointCell.getRow()), 720, 50);
-            g.drawString(cellAtPointCell.getType(), 820, 50);
-            g.drawString("Crossing Time:", 720, 65);
-            g.drawString(String.valueOf(cellAtPointCell.getCrossingTime()), 820, 65);
+            graphics.setColor(Color.DARK_GRAY);
+            graphics.drawString(cellAtPointCell.getColumn() + String.valueOf(cellAtPointCell.getRow()), 720, 50);
+            graphics.drawString(cellAtPointCell.getType(), 820, 50);
+            graphics.drawString("Crossing Time:", 720, 65);
+            graphics.drawString(String.valueOf(cellAtPointCell.getCrossingTime()), 820, 65);
         }
 
         // Actor sidebar text
         int yLocation = 138;
         for (int i = 0; i < actors.size(); i++) {
             Actor actor = actors.get(i);
-            g.drawString(actor.getClass().toString(), 720, yLocation + 100 * i);
-            g.drawString("Location:", 730, yLocation + 13 + 100 * i);
-            g.drawString(actor.getLocation().getColumn() + Integer.toString(actor.getLocation().getRow()), 820, yLocation + 13+ 100 * i);
-            g.drawString("Redness:", 730, yLocation + 26 + 100 * i);
-            g.drawString(Float.toString(actor.getRedness()), 840, yLocation + 26 + 100 * i);
-            g.drawString("Strategy:", 730, yLocation + 39 + 100 * i);
-            g.drawString(actor.getStrategy().getClass().toString(), 840, yLocation + 39 + 100 * i);
-            g.drawString("Turns:", 730, yLocation + 52 + 100 * i);
-            g.drawString(String.valueOf(actor.getTurns()), 840, yLocation + 52 + 100 * i);
-            g.drawString("Moves:", 730, yLocation + 65 + 100 * i);
-            g.drawString(String.valueOf(actor.getMoves()), 840, yLocation + 65 + 100 * i);
-            g.drawString("Range:", 730, yLocation + 78 + 100 * i);
-            g.drawString(String.valueOf(actor.getRange()), 840, yLocation + 78 + 100 * i);
+            graphics.drawString(actor.getClass().toString(), 720, yLocation + 100 * i);
+            graphics.drawString("Location:", 730, yLocation + 13 + 100 * i);
+            graphics.drawString(actor.getLocation().getColumn() + Integer.toString(actor.getLocation().getRow()), 820, yLocation + 13+ 100 * i);
+            graphics.drawString("Redness:", 730, yLocation + 26 + 100 * i);
+            graphics.drawString(Float.toString(actor.getRedness()), 840, yLocation + 26 + 100 * i);
+            graphics.drawString("Strategy:", 730, yLocation + 39 + 100 * i);
+            graphics.drawString(actor.getStrategy().getClass().toString(), 840, yLocation + 39 + 100 * i);
+            graphics.drawString("Turns:", 730, yLocation + 52 + 100 * i);
+            graphics.drawString(String.valueOf(actor.getTurns()), 840, yLocation + 52 + 100 * i);
+            graphics.drawString("Moves:", 730, yLocation + 65 + 100 * i);
+            graphics.drawString(String.valueOf(actor.getMoves()), 840, yLocation + 65 + 100 * i);
+            graphics.drawString("Range:", 730, yLocation + 78 + 100 * i);
+            graphics.drawString(String.valueOf(actor.getRange()), 840, yLocation + 78 + 100 * i);
         }
 
         // Menu
         for (MenuItem menuItem : menuOverlay) {
-            menuItem.paint(g);
+            menuItem.paint(graphics);
         }
     }
 
-//    /**
-//     *
-//     *
-//     * @param from
-//     * @param size
-//     * @return
-//     */
-//    public List<Cell> getClearRadius(Cell from, int size) {
-//        List<Cell> output = grid.getRadius(from, size, true);
-//        for (Actor actor : actors) {
-//            output.remove(actor.getLocation());
-//        }
-//        return output;
-//    }
-
     /**
+     * Handle mouse user input based on game state; {@code ChoosingActor}, {@code SelectingNewLocation}, {@code SelectingMenuItem} and {@code SelectingTarget}
      *
-     *
-     * @param x
-     * @param y
+     * @param x the x coordinate of the mouse
+     * @param y the y coordinate of the mouse
      */
     public void mouseClicked(int x, int y) {
         switch (currentState) {
@@ -154,17 +141,17 @@ public class Stage {
                 }
             }
             case SelectingNewLocation -> {
-                Optional<Cell> clicked = Optional.empty();
+                Optional<Cell> selectedCell = Optional.empty();
 
                 for (Cell cell : cellOverlay) {
                     if (cell.contains(x, y)) {
-                        clicked = Optional.of(cell);
+                        selectedCell = Optional.of(cell);
                     }
                 }
 
-                if (clicked.isPresent() && actorInAction.isPresent()) {
+                if (selectedCell.isPresent() && actorInAction.isPresent()) {
                     cellOverlay = new ArrayList<>();
-                    actorInAction.get().setLocation(clicked.get());
+                    actorInAction.get().setLocation(selectedCell.get());
                     actorInAction.get().setTurns(actorInAction.get().getTurns() - 1);
                     menuOverlay.add(new MenuItem("Fire", x, y, () -> {
                         cellOverlay = grid.getRadius(actorInAction.get().getLocation(), actorInAction.get().getRange(), false);
@@ -198,9 +185,9 @@ public class Stage {
     }
 
     /**
-     * Return the {@code Actor} at the specified {@code Cell}, else an empty {@code Optional} is returned
+     * Return the {@code Actor} at the specified {@code Cell} if it exists
      *
-     * @return the {@code Actor} at the specified {@code Cell}, else an empty {@code Optional}
+     * @return the {@code Actor} at the specified {@code Cell} if it exists
      */
     public Optional<Actor> getActorAtCell(Cell cell) {
         for (Actor actor : actors) {

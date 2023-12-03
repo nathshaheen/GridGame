@@ -1,9 +1,9 @@
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import java.time.Duration;
 import java.time.Instant;
 
@@ -24,37 +24,37 @@ public class Main extends JFrame {
         /**
          * Paint the {@code App}
          *
-         * @param g where to paint
+         * @param graphics where to paint
          */
         @Override
-        public void paint(Graphics g) {
-            stage.paint(g, getMousePosition());
+        public void paint(Graphics graphics) {
+            stage.paint(graphics, getMousePosition());
         }
 
         /**
          * Mouse click event listener
          *
-         * @param e the event to be processed
+         * @param event the event to be processed
          */
         @Override
-        public void mouseClicked(MouseEvent e) {
-            stage.mouseClicked(e.getX(), e.getY());
+        public void mouseClicked(MouseEvent event) {
+            stage.mouseClicked(event.getX(), event.getY());
         }
 
         @Override
-        public void mousePressed(MouseEvent e) {
+        public void mousePressed(MouseEvent event) {
         }
 
         @Override
-        public void mouseReleased(MouseEvent e) {
+        public void mouseReleased(MouseEvent event) {
         }
 
         @Override
-        public void mouseEntered(MouseEvent e) {
+        public void mouseEntered(MouseEvent event) {
         }
 
         @Override
-        public void mouseExited(MouseEvent e) {
+        public void mouseExited(MouseEvent event) {
         }
     }
 
@@ -85,12 +85,12 @@ public class Main extends JFrame {
             Instant startTime = Instant.now();
             this.repaint();
             Instant endTime = Instant.now();
-            long howLong = Duration.between(startTime, endTime).toMillis();
+            long sleepTime = Duration.between(startTime, endTime).toMillis();
             try {
-                Thread.sleep(20L - howLong);
-            } catch (InterruptedException e) {
-                System.out.println("Thread was interupted");
-            } catch (IllegalArgumentException e) {
+                Thread.sleep(20L - sleepTime);
+            } catch (InterruptedException exception) {
+                System.out.println("Thread was interrupted");
+            } catch (IllegalArgumentException exception) {
                 System.out.println("Application can't keep up with the framerate");
             }
         }

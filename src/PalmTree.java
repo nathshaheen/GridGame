@@ -7,10 +7,10 @@ public class PalmTree extends Cell {
     /**
      * Constructor
      *
-     * @param column    the {@code column} of the {@code PalmTree}
-     * @param row       the {@code row} of the {@code PalmTree}
-     * @param x         the {@code x} position of the {@code PalmTree}
-     * @param y         the {@code y} position of the {@code PalmTree}
+     * @param column the column of the {@code PalmTree}
+     * @param row    the row of the {@code PalmTree}
+     * @param x      the x position of the {@code PalmTree}
+     * @param y      the y position of the {@code PalmTree}
      */
     public PalmTree(char column, int row, int x, int y) {
         super(column, row, x, y);

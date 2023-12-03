@@ -7,10 +7,10 @@ public class Wall extends Cell {
     /**
      * Constructor
      *
-     * @param column    the {@code column} of the {@code Wall}
-     * @param row       the {@code row} of the {@code Wall}
-     * @param x         the {@code x} position of the {@code Wall}
-     * @param y         the {@code y} position of the {@code Wall}
+     * @param column the column of the {@code Wall}
+     * @param row    the row of the {@code Wall}
+     * @param x      the x position of the {@code Wall}
+     * @param y      the y position of the {@code Wall}
      */
     public Wall(char column, int row, int x, int y) {
         super(column, row, x, y);

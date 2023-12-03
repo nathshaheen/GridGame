@@ -1,4 +1,6 @@
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Polygon;
 import java.util.ArrayList;
 
 public abstract class Actor {
@@ -13,8 +15,8 @@ public abstract class Actor {
     /**
      * Constructor
      *
-     * @param location the {@code location} of the {@code Actor}
-     * @param redness  the {@code redness} of the {@code Actor}
+     * @param location the location of the {@code Actor}
+     * @param redness  the redness} of the {@code Actor}
      */
     public Actor(Cell location, float redness) {
         this.location = location;
@@ -24,14 +26,14 @@ public abstract class Actor {
     /**
      * Paint the {@code Actor}
      *
-     * @param g where to paint
+     * @param graphics where to paint
      */
-    public void paint(Graphics g) {
+    public void paint(Graphics graphics) {
         for (Polygon polygon : display) {
-            g.setColor(new Color(redness, 0f ,1.0f - redness));
-            g.fillPolygon(polygon);
-            g.setColor(Color.GRAY);
-            g.drawPolygon(polygon);
+            graphics.setColor(new Color(redness, 0f ,1.0f - redness));
+            graphics.fillPolygon(polygon);
+            graphics.setColor(Color.GRAY);
+            graphics.drawPolygon(polygon);
         }
     }
 

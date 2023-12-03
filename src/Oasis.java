@@ -7,10 +7,10 @@ public class Oasis extends Cell {
     /**
      * Constructor
      *
-     * @param column    the {@code column} of the {@code Oasis}
-     * @param row       the {@code row} of the {@code Oasis}
-     * @param x         the {@code x} position of the {@code Oasis}
-     * @param y         the {@code y} position of the {@code Oasis}
+     * @param column the column of the {@code Oasis}
+     * @param row    the row of the {@code Oasis}
+     * @param x      the x position of the {@code Oasis}
+     * @param y      the y position of the {@code Oasis}
      */
     public Oasis(char column, int row, int x, int y) {
         super(column, row, x, y);

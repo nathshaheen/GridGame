@@ -8,10 +8,10 @@ public class Sand extends Cell {
     /**
      * Constructor
      *
-     * @param column    the {@code column} of the {@code Sand}
-     * @param row       the {@code row} of the {@code Sand}
-     * @param x         the {@code x} position of the {@code Sand}
-     * @param y         the {@code y} position of the {@code Sand}
+     * @param column the column of the {@code Sand}
+     * @param row    the row of the {@code Sand}
+     * @param x      the x position of the {@code Sand}
+     * @param y      the y position of the {@code Sand}
      */
     public Sand(char column, int row, int x, int y) {
         super(column, row, x, y);
