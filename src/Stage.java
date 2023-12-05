@@ -18,11 +18,11 @@ public class Stage {
      * Constructor
      */
     public Stage() {
-        grid = new Grid();
-        actors = new ArrayList<>();
-        cellOverlay = new ArrayList<>();
-        menuOverlay = new ArrayList<>();
-        currentState = State.ChoosingActor;
+        this.setGrid(new Grid());
+        this.setActors(new ArrayList<>());
+        this.setCellOverlay(new ArrayList<>());
+        this.setMenuOverlay(new ArrayList<>());
+        this.setCurrentState(State.ChoosingActor);
     }
 
     /**
@@ -37,8 +37,7 @@ public class Stage {
             for (Actor actor: actors) {
                 if (!actor.isTeamRed()) {
                     List<Cell> possibleLocations = grid.getRadius(actor.getLocation(), actor.getMoves(), true);
-                    Cell nextLocation = actor.getStrategy().chooseNextLocation(possibleLocations);
-                    actor.setLocation(nextLocation);
+                    actor.setLocation(actor.getStrategy().chooseNextLocation(possibleLocations));
                 }
             }
 
@@ -62,8 +61,12 @@ public class Stage {
             }
         }
 
+        // TODO: doToEach
         // Grid
-        grid.paint(graphics, mousePosition);
+        for (Cell cell : grid) {
+            cell.paint(graphics, mousePosition);
+        }
+//        grid.paint(graphics, mousePosition);
 
         // Cell overlay
         grid.paintOverlay(graphics, cellOverlay, new Color(0.0f, 0.0f, 1.0f, 0.5f));
@@ -88,24 +91,24 @@ public class Stage {
             graphics.drawString(String.valueOf(cellAtPointCell.getCrossingTime()), 820, 65);
         }
 
-        // Actor sidebar text
-        int yLocation = 138;
-        for (int i = 0; i < actors.size(); i++) {
-            Actor actor = actors.get(i);
-            graphics.drawString(actor.getClass().toString(), 720, yLocation + 100 * i);
-            graphics.drawString("Location:", 730, yLocation + 13 + 100 * i);
-            graphics.drawString(actor.getLocation().getColumn() + Integer.toString(actor.getLocation().getRow()), 820, yLocation + 13+ 100 * i);
-            graphics.drawString("Redness:", 730, yLocation + 26 + 100 * i);
-            graphics.drawString(Float.toString(actor.getRedness()), 840, yLocation + 26 + 100 * i);
-            graphics.drawString("Strategy:", 730, yLocation + 39 + 100 * i);
-            graphics.drawString(actor.getStrategy().getClass().toString(), 840, yLocation + 39 + 100 * i);
-            graphics.drawString("Turns:", 730, yLocation + 52 + 100 * i);
-            graphics.drawString(String.valueOf(actor.getTurns()), 840, yLocation + 52 + 100 * i);
-            graphics.drawString("Moves:", 730, yLocation + 65 + 100 * i);
-            graphics.drawString(String.valueOf(actor.getMoves()), 840, yLocation + 65 + 100 * i);
-            graphics.drawString("Range:", 730, yLocation + 78 + 100 * i);
-            graphics.drawString(String.valueOf(actor.getRange()), 840, yLocation + 78 + 100 * i);
-        }
+//        // Actor sidebar text
+//        int yLocation = 138;
+//        for (int i = 0; i < actors.size(); i++) {
+//            Actor actor = actors.get(i);
+//            graphics.drawString(actor.getClass().toString(), 720, yLocation + 100 * i);
+//            graphics.drawString("Location:", 730, yLocation + 13 + 100 * i);
+//            graphics.drawString(actor.getLocation().getColumn() + Integer.toString(actor.getLocation().getRow()), 820, yLocation + 13+ 100 * i);
+//            graphics.drawString("Redness:", 730, yLocation + 26 + 100 * i);
+//            graphics.drawString(Float.toString(actor.getRedness()), 840, yLocation + 26 + 100 * i);
+//            graphics.drawString("Strategy:", 730, yLocation + 39 + 100 * i);
+//            graphics.drawString(actor.getStrategy().getClass().toString(), 840, yLocation + 39 + 100 * i);
+//            graphics.drawString("Turns:", 730, yLocation + 52 + 100 * i);
+//            graphics.drawString(String.valueOf(actor.getTurns()), 840, yLocation + 52 + 100 * i);
+//            graphics.drawString("Moves:", 730, yLocation + 65 + 100 * i);
+//            graphics.drawString(String.valueOf(actor.getMoves()), 840, yLocation + 65 + 100 * i);
+//            graphics.drawString("Range:", 730, yLocation + 78 + 100 * i);
+//            graphics.drawString(String.valueOf(actor.getRange()), 840, yLocation + 78 + 100 * i);
+//        }
 
         // Menu
         for (MenuItem menuItem : menuOverlay) {
@@ -124,11 +127,10 @@ public class Stage {
             case ChoosingActor -> {
                 actorInAction = Optional.empty();
 
+                // Determine selected Actor
                 for (Actor actor : actors) {
                     if (actor.getLocation().contains(x, y) && actor.isTeamRed()) {
-                        cellOverlay = grid.getRadius(actor.getLocation(), actor.getMoves(), true);
                         actorInAction = Optional.of(actor);
-                        currentState = State.SelectingNewLocation;
                     }
                 }
 
@@ -137,7 +139,9 @@ public class Stage {
                     menuOverlay.add(new MenuItem("Oops", x, y, () -> currentState = State.ChoosingActor));
                     menuOverlay.add(new MenuItem("End Turn", x, y + MenuItem.height, () -> currentState = State.CPUMoving));
                     menuOverlay.add(new MenuItem("End Game", x, y + MenuItem.height * 2, () -> System.exit(0)));
-
+                } else if (actorInAction.get().getTurns() > 0) {
+                    cellOverlay = grid.getRadius(actorInAction.get().getLocation(), actorInAction.get().getMoves(), true);
+                    currentState = State.SelectingNewLocation;
                 }
             }
             case SelectingNewLocation -> {
@@ -205,39 +209,47 @@ public class Stage {
         return grid;
     }
 
-//    public void setGrid(Grid grid) {
-//        this.grid = grid;
-//    }
+    public void setGrid(Grid grid) {
+        this.grid = grid;
+    }
 
     public List<Actor> getActors() {
         return actors;
     }
 
-//    public void setActors(List<Actor> actors) {
-//        this.actors = actors;
-//    }
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
+    }
 
 //    public List<Cell> getCellOverlay() {
 //        return cellOverlay;
 //    }
 
-//    public void setCellOverlay(List<Cell> cellOverlay) {
-//        this.cellOverlay = cellOverlay;
-//    }
+    public void setCellOverlay(List<Cell> cellOverlay) {
+        this.cellOverlay = cellOverlay;
+    }
 
 //    public List<MenuItem> getMenuOverlay() {
 //        return menuOverlay;
 //    }
 
-//    public void setMenuOverlay(List<MenuItem> menuOverlay) {
-//        this.menuOverlay = menuOverlay;
-//    }
+    public void setMenuOverlay(List<MenuItem> menuOverlay) {
+        this.menuOverlay = menuOverlay;
+    }
 
 //    public Optional<Actor> getActorInAction() {
 //        return actorInAction;
 //    }
 
-//    public void setActorInAction(Optional<Actor> actorInAction) {
-//        this.actorInAction = actorInAction;
+    public void setActorInAction(Optional<Actor> actorInAction) {
+        this.actorInAction = actorInAction;
+    }
+
+//    public State getCurrentState() {
+//        return currentState;
 //    }
+
+    public void setCurrentState(State currentState) {
+        this.currentState = currentState;
+    }
 }

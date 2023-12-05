@@ -10,10 +10,10 @@ public class Lion extends Actor{
      */
     public Lion(Cell location, float redness) {
         super(location, redness);
-        setTurns(1);
-        setMoves(1);
-        setRange(5);
-        setPoly();
+        this.setTurns(1);
+        this.setMoves(1);
+        this.setRange(5);
+        this.setPoly();
     }
 
     /**

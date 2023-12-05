@@ -18,15 +18,15 @@ public class Sand extends Cell {
 
         yellow = random.nextFloat();
         if (yellow >= 0.8f) {   // Determine if Sand is Quicksand
-            setType("Quicksand");
+            this.setType("Quicksand");
         } else {
-            setType("Sand");
+            this.setType("Sand");
         }
 
         int r = (200 + (int )(yellow * 50 + 1));
         int g = (150 + (int) (yellow * 50 + 1));
         int b = 0;
-        setColor(new Color(r, g, b));
+        this.setColor(new Color(r, g, b));
     }
 
     /*

@@ -10,10 +10,10 @@ public class Dog extends Actor {
      */
     public Dog(Cell location, float redness) {
         super(location, redness);
-        setTurns(1);
-        setMoves(2);
-        setRange(3);
-        setPoly();
+        this.setTurns(1);
+        this.setMoves(2);
+        this.setRange(3);
+        this.setPoly();
     }
 
     /**

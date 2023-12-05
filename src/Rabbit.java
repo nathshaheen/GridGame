@@ -10,10 +10,10 @@ public class Rabbit extends Actor {
      */
     public Rabbit(Cell location, float redness) {
         super(location, redness);
-        setTurns(1);
-        setMoves(3);
-        setRange(1);
-        setPoly();
+        this.setTurns(1);
+        this.setMoves(3);
+        this.setRange(1);
+        this.setPoly();
     }
 
     /**

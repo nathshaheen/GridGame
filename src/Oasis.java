@@ -14,12 +14,12 @@ public class Oasis extends Cell {
      */
     public Oasis(char column, int row, int x, int y) {
         super(column, row, x, y);
-        setType("Oasis");
+        this.setType("Oasis");
 
         int r = 0;
         int g = (100 + (random.nextInt(0, 1) * 50 + 1));
         int b = (200 + (random.nextInt(0, 1) * 50 + 1));
-        setColor(new Color(r, g, b));
+        this.setColor(new Color(r, g, b));
     }
 
     /*

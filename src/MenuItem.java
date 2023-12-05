@@ -18,8 +18,8 @@ public class MenuItem  extends Rectangle {
      */
     public MenuItem(String display, int x, int y, Runnable action) {
         super(x, y, width, height);
-        this.display = display;
-        this.action = action;
+        this.setDisplay(display);
+        this.setAction(action);
     }
 
     /**
@@ -43,15 +43,15 @@ public class MenuItem  extends Rectangle {
         return action;
     }
 
-//    public void setAction(Runnable action) {
-//        this.action = action;
-//    }
+    public void setAction(Runnable action) {
+        this.action = action;
+    }
 
 //    public String getDisplay() {
 //        return display;
 //    }
 
-//    public void setDisplay(String display) {
-//        this.display = display;
-//    }
+    public void setDisplay(String display) {
+        this.display = display;
+    }
 }

@@ -20,8 +20,8 @@ public abstract class Cell extends Rectangle {
      */
     public Cell(char column, int row, int x, int y) {
         super(x, y, size, size);
-        this.column = column;
-        this.row = row;
+        this.setColumn(column);
+        this.setRow(row);
     }
 
     /**
@@ -56,6 +56,14 @@ public abstract class Cell extends Rectangle {
         }
     }
 
+    public int leftOfComparison(Cell cell) {
+        return Character.compare(column, cell.getColumn());
+    }
+
+    public int aboveOfComparison(Cell cell) {
+        return Integer.compare(row, cell.getRow());
+    }
+
     /*
      * GETTERS AND SETTERS
      */
@@ -65,17 +73,17 @@ public abstract class Cell extends Rectangle {
         return column;
     }
 
-//    public void setColumn(char column) {
-//        this.column = column;
-//    }
+    public void setColumn(char column) {
+        this.column = column;
+    }
 
     public int getRow() {
         return row;
     }
 
-//    public void setRow(int row) {
-//        this.row = row;
-//    }
+    public void setRow(int row) {
+        this.row = row;
+    }
 
     public String getType() {
         return type;

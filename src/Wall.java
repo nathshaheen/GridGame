@@ -14,12 +14,12 @@ public class Wall extends Cell {
      */
     public Wall(char column, int row, int x, int y) {
         super(column, row, x, y);
-        setType("Wall");
+        this.setType("Wall");
 
         int r = (50 + (random.nextInt(0, 1) * 25 + 1));;
         int g = (50 + (random.nextInt(0, 1) * 25 + 1));
         int b = (50 + (random.nextInt(0, 1) * 25 + 1));;
-        setColor(new Color(r, g, b));
+        this.setColor(new Color(r, g, b));
     }
 
     /*

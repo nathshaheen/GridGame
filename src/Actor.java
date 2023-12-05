@@ -2,11 +2,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
 
 public abstract class Actor {
     private Cell location;
     private ArrayList<Polygon> display;
-    private MoveStrategy strategy = new RandomMove();
+    private MoveStrategy strategy;
     private float redness;
     private int turns;
     private int moves;
@@ -19,8 +22,8 @@ public abstract class Actor {
      * @param redness  the redness} of the {@code Actor}
      */
     public Actor(Cell location, float redness) {
-        this.location = location;
-        this.redness = redness;
+        this.setLocation(location);
+        this.setRedness(redness);
     }
 
     /**
@@ -70,12 +73,12 @@ public abstract class Actor {
     public void setLocation(Cell location) {
         this.location = location;
 
-        // Assign a MoveStrategy
-        if (this.location.getRow() % 2 == 0) {
-            this.strategy = new RandomMove();
+        if (location.getRow() % 2 == 0) {
+            setStrategy(new RandomMove());
         } else {
-            this.strategy = new LeftMostMove();
+            setStrategy(new LeftMostMove());
         }
+
         setPoly();
     }
 
@@ -91,17 +94,17 @@ public abstract class Actor {
         return strategy;
     }
 
-//    public void setStrategy(MoveStrategy strategy) {
-//        this.strategy = strategy;
-//    }
+    public void setStrategy(MoveStrategy strategy) {
+        this.strategy = strategy;
+    }
 
     public float getRedness() {
         return redness;
     }
 
-//    public void setRedness(float redness) {
-//        this.redness = redness;
-//    }
+    public void setRedness(float redness) {
+        this.redness = redness;
+    }
 
     public int getTurns() {
         return turns;

@@ -14,12 +14,12 @@ public class PalmTree extends Cell {
      */
     public PalmTree(char column, int row, int x, int y) {
         super(column, row, x, y);
-        setType("Palm Tree");
+        this.setType("Palm Tree");
 
         int r = 0;
         int g = (100 + (random.nextInt(0, 1) * 50 + 1));
         int b = 0;
-        setColor(new Color(r, g, b));
+        this.setColor(new Color(r, g, b));
     }
 
     /*

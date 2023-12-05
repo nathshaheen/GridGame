@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
-public class Grid {
+public class Grid implements Iterable<Cell> {
     private Cell[][] cells = new Cell[20][20];
     private static Random random = new Random();
 
@@ -39,10 +39,8 @@ public class Grid {
      * @param mousePosition position of the mouse
      */
     public void paint(Graphics graphics, Point mousePosition) {
-        for (int column = 0; column < cells.length; column++) {
-            for (int row = 0; row < cells[column].length; row++) {
-                cells[column][row].paint(graphics, mousePosition);
-            }
+        for (Cell cell : this) {
+            cell.paint(graphics, mousePosition);
         }
     }
 
@@ -167,14 +165,22 @@ public class Grid {
      * @return      the {@code Cell} at the specified {@code Point}
      */
     public Optional<Cell> getCellAtPoint(Point point) {
-        for (int column = 0; column < cells.length; column++) {
-            for (int row = 0; row < cells[column].length; row++) {
-                if (cells[column][row].contains(point)) {
-                    return Optional.of(cells[column][row]);
-                }
+        for (Cell cell : this) {
+            if (cell.contains(point)) {
+                return Optional.of(cell);
             }
         }
         return Optional.empty();
+    }
+
+    /**
+     * Returns a {@code CellIterator}
+     *
+     * @return a {@code CellIterator}
+     */
+    @Override
+    public CellIterator iterator() {
+        return new CellIterator(cells);
     }
 
     /*
